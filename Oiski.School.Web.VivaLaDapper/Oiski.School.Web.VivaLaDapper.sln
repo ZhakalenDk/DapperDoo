@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oiski.School.Web.VivaLaDapper", "Oiski.School.Web.VivaLaDapper\Oiski.School.Web.VivaLaDapper.csproj", "{8AA6789E-EE78-4103-B69C-C1E0A03283BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{653FDD55-52F7-4FBA-9030-DD9E7C9C1FEA}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AA6789E-EE78-4103-B69C-C1E0A03283BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA6789E-EE78-4103-B69C-C1E0A03283BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA6789E-EE78-4103-B69C-C1E0A03283BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA6789E-EE78-4103-B69C-C1E0A03283BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{653FDD55-52F7-4FBA-9030-DD9E7C9C1FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653FDD55-52F7-4FBA-9030-DD9E7C9C1FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{653FDD55-52F7-4FBA-9030-DD9E7C9C1FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653FDD55-52F7-4FBA-9030-DD9E7C9C1FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A026D41-B6C5-43F1-B7EB-9CD82D7577CF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F89E9A7-4CC4-419A-AB58-B620D891081D}
+	EndGlobalSection
+EndGlobal
