@@ -1,0 +1,23 @@
+﻿@page
+@using Oiski.School.Web.DapperDoo.Domain
+@inject TaskAccess taskAccess
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@{
+    var newTask = new TaskItem() { ID = Guid.NewGuid(), Title = new Random().Next().ToString(), Description = "SOmehting" };
+}
+<p>Add: @await taskAccess.AddTaskAsync(newTask)</p>
+@{
+    newTask.Title = $"{newTask.Title} - ({new Random().Next()})";
+}
+<p>Update: @await taskAccess.UpdateTaskAsync(newTask)</p>
+<p>Delete: @await taskAccess.DeleteTaskAsync(newTask)</p>
+
+@foreach (var task in await taskAccess.GetTasksAsync())
+{
+    <p>@task.Title</p>
+}
