@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Oiski.School.Web.DapperDoo.App;
 
-using IDbConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB; Database=SampleDB; Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False"); //  Used by all samples
+using IDbConnection connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB; Database=SampleDatabase; Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False"); //  Used by all samples
 
 #region Dapper Execute Sample
 var rows = await connection.ExecuteAsync("INSERT INTO Samples (Title) values (@Title)", new { Title = "MySampleTitle" });
@@ -44,7 +44,7 @@ Console.WriteLine($"Sample (Query Single or Default): {querySingleOrDefaultEntit
 #endregion
 
 #region Dapper Multiple Sample
-using var multiQuery = await connection.QueryMultipleAsync("SELECT * FROM Sample; SELECT * FROM Samples2");
+using var multiQuery = await connection.QueryMultipleAsync("SELECT * FROM Samples; SELECT * FROM Samples2");
 var sampleEntity = multiQuery.Read<SampleEntity>()
     .FirstOrDefault();
 
@@ -53,4 +53,11 @@ var sampleEntity2 = multiQuery.Read<SampleEntity2>()
 
 Console.WriteLine($"Sample (Query Multiple (SampleEntity)): {sampleEntity.Title}");
 Console.WriteLine($"Sample (Query Multiple (SampleEntity2)): {sampleEntity2.Title}");
+#endregion
+
+#region Clean up crew
+var DeleteRows = await connection.ExecuteAsync("DELETE FROM Samples WHERE (Title = @Title)", new { Title = "MySampleTitle" });
+DeleteRows += await connection.ExecuteAsync("DELETE FROM Samples2 WHERE (Title =  @Title)", new { Title = "MySampleTitle2" });
+
+Console.WriteLine($"Deleted Rows: {rows}");
 #endregion
