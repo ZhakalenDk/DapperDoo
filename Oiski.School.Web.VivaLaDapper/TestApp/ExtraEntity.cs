@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace TestApp
 {
-    [Table("Samples")]
-    public class SampleEntity
+    [Table("Extras")]
+    public class ExtraEntity
     {
         [Key]
-        public int ID { get; set; }
-        public string Title { get; set; }
+        public int Id { get; set; }
+
+        public string Description { get; set; }
     }
 }

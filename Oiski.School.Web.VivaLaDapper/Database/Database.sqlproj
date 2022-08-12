@@ -59,5 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Samples.sql" />
+    <Build Include="Extras.sql" />
   </ItemGroup>
 </Project>

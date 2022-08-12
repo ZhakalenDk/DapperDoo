@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using static Dapper.SqlMapper;
 
 namespace Oiski.School.Web.VivaLaDaper
 {
@@ -81,7 +82,7 @@ namespace Oiski.School.Web.VivaLaDaper
                 string? propertyName = property.Name;
                 object? propertyValue = property.GetValue(entity);
 
-                KeyAttribute? keyAttribute = (KeyAttribute?)Attribute.GetCustomAttribute(property, typeof(KeyAttribute));   //  Getting the key if the attribute is present
+                KeyAttribute? keyAttribute = ( KeyAttribute? )Attribute.GetCustomAttribute(property, typeof(KeyAttribute));   //  Getting the key if the attribute is present
 
                 if (keyAttribute != null)
                 {
@@ -125,7 +126,7 @@ namespace Oiski.School.Web.VivaLaDaper
                 string? propertyName = property.Name;
                 object? propertyValue = property.GetValue(entity);
 
-                KeyAttribute? keyAttribute = (KeyAttribute?)Attribute.GetCustomAttribute(property, typeof(KeyAttribute));
+                KeyAttribute? keyAttribute = ( KeyAttribute? )Attribute.GetCustomAttribute(property, typeof(KeyAttribute));
 
                 if (keyAttribute != null)
                 {
@@ -138,6 +139,40 @@ namespace Oiski.School.Web.VivaLaDaper
             return (await connection.ExecuteAsync(insertQuery)) > 0;
         }
 
+        public async Task<TEntity> GetByKeyAsync<TEntity, TKey>(TKey key, string connectionID = "Default") where TEntity : class, new()
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionID));
+
+            string? tableName = GetTableData(new TEntity()).Item2;
+
+            PropertyInfo[] properties = typeof(TEntity).GetProperties();
+
+            string? keyPropertyName = null;
+            for (int i = 0; i < properties.Length; i++) //  Build column and value list
+            {
+                var property = properties[i];
+                string? propertyName = property.Name;
+
+                KeyAttribute? keyAttribute = ( KeyAttribute? )Attribute.GetCustomAttribute(property, typeof(KeyAttribute));
+
+                if (keyAttribute != null)
+                {
+                    keyPropertyName = propertyName;
+                }
+            }
+
+            return await connection.QueryFirstOrDefaultAsync<TEntity>($"SELECT * FROM {tableName} WHERE ({keyPropertyName} = {key})");
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAll<TEntity>(string connectionID = "Default") where TEntity : class, new()
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionID));
+
+            string? tableName = GetTableData(new TEntity()).Item2;
+
+            return await connection.QueryAsync<TEntity>($"SELECT * FROM {tableName}");
+        }
+
         /// <summary>
         /// Gets the <strong>name</strong> and the <strong>schema</strong> of the associated table to <paramref name="entity"/>
         /// </summary>
@@ -146,7 +181,7 @@ namespace Oiski.School.Web.VivaLaDaper
         /// <returns>(TableSchema, TableName)</returns>
         private (string?, string?) GetTableData<TEntity>(TEntity entity)
         {
-            TableAttribute? tableAttribute = (TableAttribute?)Attribute.GetCustomAttribute(typeof(TEntity), typeof(TableAttribute));
+            TableAttribute? tableAttribute = ( TableAttribute? )Attribute.GetCustomAttribute(typeof(TEntity), typeof(TableAttribute));
 
             var tableSchema = tableAttribute?.Schema;
             var tableName = tableAttribute?.Name;
